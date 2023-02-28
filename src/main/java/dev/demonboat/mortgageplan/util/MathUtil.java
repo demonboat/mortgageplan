@@ -1,18 +1,16 @@
 package dev.demonboat.mortgageplan.util;
 
-import java.math.BigDecimal;
-
 public final class MathUtil {
 
   private MathUtil() {}
 
-  public static BigDecimal pow(final BigDecimal base, final BigDecimal exponent) {
+  public static Double pow(final Double base, final Double exponent) {
     if (base == null || exponent == null) {
       throw new IllegalArgumentException("Neither base nor exponent may be null.");
     }
-    BigDecimal result = BigDecimal.ONE;
+    double result = 1.0;
     for (int i = 0; i < exponent.intValue(); i++) {
-      result = result.multiply(base);
+      result *= base;
     }
     return result;
   }

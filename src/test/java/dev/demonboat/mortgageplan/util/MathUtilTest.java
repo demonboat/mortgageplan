@@ -2,8 +2,6 @@ package dev.demonboat.mortgageplan.util;
 
 import org.junit.jupiter.api.Test;
 
-import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -12,19 +10,19 @@ public final class MathUtilTest {
 
   @Test
   public void testSuccessAndUse() {
-    assertEquals(new BigDecimal(243), MathUtil.pow(new BigDecimal(3), new BigDecimal(5)));
-    assertEquals(new BigDecimal(16), MathUtil.pow(new BigDecimal(4), new BigDecimal(2)));
-    assertEquals(new BigDecimal(4096), MathUtil.pow(new BigDecimal(4), new BigDecimal(6)));
+    assertEquals(243.0, MathUtil.pow(3.0, 5.0));
+    assertEquals(16.0, MathUtil.pow(4.0, 2.0));
+    assertEquals(4096.0, MathUtil.pow(4.0,6.0));
   }
 
   @Test
   public void testFailsWithInvalidLeftParameter() {
-    assertThrows(IllegalArgumentException.class, () -> MathUtil.pow(null, new BigDecimal(3)));
+    assertThrows(IllegalArgumentException.class, () -> MathUtil.pow(null,3.0));
 
   }
 
   @Test
   public void testFailsWithInvalidRightParameter() {
-    assertThrows(IllegalArgumentException.class, () -> MathUtil.pow(new BigDecimal(5), null));
+    assertThrows(IllegalArgumentException.class, () -> MathUtil.pow(5.0, null));
   }
 }
