@@ -1,7 +1,10 @@
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.0.3'
     id 'io.spring.dependency-management' version '1.1.0'
+    id "org.springdoc.openapi-gradle-plugin" version "1.6.0"
+//    id 'org.openapi.generator' version "6.3.0"
 }
 
 group = 'dev.demonboat'
@@ -18,7 +21,24 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    main {
+        java {
+            srcDir "${buildDir.absolutePath}/generated/src/main/java/"
+        }
+    }
+    generated {
+        java.srcDir "${buildDir}/generated/src/main/java/"
+    }
+}
+
+
 dependencies {
+    implementation 'io.swagger:swagger-annotations:1.6.8'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    implementation 'com.opencsv:opencsv:5.7.1'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -29,3 +49,23 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+//openApiGenerate {
+//    generatorName = "spring"
+//    inputSpec = "$projectDir/src/main/resources/openapi/backend-api.yaml".toString()
+//    outputDir = "$buildDir/generated".toString()
+//    apiPackage = "dev.demonboat.mortgageplan.rest.v1.api"
+//    modelPackage = "dev.demonboat.mortgageplan.rest.v1.api.dto"
+//    generateApiDocumentation = false
+//    configOptions = [
+//            interfaceOnly       : "true",
+//            skipDefaultInterface: "true",
+//            useJakartaEe        : "true"
+//    ]
+//}
+
+compileJava {
+    //dependsOn tasks.openApiGenerate
+    source += sourceSets.generated.java
+}
+

@@ -20,10 +20,18 @@ public final class NumberValidator<T extends Comparable<T>> {
     if (isValid(value)) {
       return;
     }
-    String exceptionMessage = """
-      Expected %s to have minimum value of %d, a maximum value of %d if null was valid: %s, but it was:
-      null: %s, value: %d
+    String exceptionMessage = null;
+    if (value instanceof Double) {
+      exceptionMessage = """
+      Expected %s to have minimum value of %f, a maximum value of %f if null was valid: %s, but it was:
+      null: %s, value: %f
     """.formatted(fieldName, minValue, maxValue, nullValid, value == null, value);
+    } else if (value instanceof Integer) {
+      exceptionMessage = """
+        Expected %s to have minimum value of %d, a maximum value of %d if null was valid: %s, but it was:
+        null: %s, value: %d
+      """.formatted(fieldName, minValue, maxValue, nullValid, value == null, value);
+    }
     throw new IllegalArgumentException(exceptionMessage);
   }
 
@@ -33,11 +41,15 @@ public final class NumberValidator<T extends Comparable<T>> {
     }
     if (minValue != null) {
       int result = value.compareTo(minValue);
-      return result >= 0;
+      if (result < 0) {
+        return false;
+      }
     }
     if (maxValue != null) {
       int result = value.compareTo(maxValue);
-      return result <= 0;
+      if (result > 0) {
+        return false;
+      }
     }
     return true;
   }
