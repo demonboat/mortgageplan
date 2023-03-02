@@ -8,13 +8,13 @@ public record Prospect(String customerName, Double totalLoan, Double interest, I
   public static final StringValidator customerValidator
     = new StringValidator("customerName", 1, 50, false);
   public static final NumberValidator<Double> totalLoanValidator
-    = new NumberValidator<>("total loan", 0.0, 3000.0, false);
+    = new NumberValidator<>("total loan", 0.0, 5000.0, false);
   public static final NumberValidator<Double> interestValidator
-    = new NumberValidator<>("total loan", 0.0, 3000.0, false);
+    = new NumberValidator<>("total loan", 0.0, 5000.0, false);
   public static final NumberValidator<Integer> yearsValidator
     = new NumberValidator<>("total loan", 0, 100, false);
   public static final NumberValidator<Double> calculatedFixedRateValidator
-    = new NumberValidator<>("total loan", 0.0, 3000.0, false);
+    = new NumberValidator<>("total loan", 0.0, 5000.0, false);
 
 
   public Prospect {

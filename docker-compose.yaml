@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: 'on-failure'
+    networks:
+      - containers
+  backend:
+    env_file:
+      - .env
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - containers
+    restart: 'on-failure'
+networks:
+  containers:
+    driver: bridge

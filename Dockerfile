@@ -1,4 +1,4 @@
-FROM openjdk:17 AS build
+FROM eclipse-temurin:17-ubi9-minimal AS build
 WORKDIR /var/src
 
 # Download gradle
@@ -10,11 +10,11 @@ RUN ./gradlew --no-daemon --version
 COPY . .
 RUN ./gradlew --no-daemon clean build
 
-FROM openjdk:17-jre
+FROM eclipse-temurin:17-jre-ubi9-minimal
 WORKDIR /var/app
 
 COPY --from=build /var/src/build/libs/* ./
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-Dserver.port=8080", "-jar", "backend.jar"]
+ENTRYPOINT ["java","-Dserver.port=8080", "-jar", "mortgageplan-0.0.1-SNAPSHOT.jar"]
