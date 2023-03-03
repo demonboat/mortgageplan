@@ -4,9 +4,9 @@ import dev.demonboat.mortgageplan.logic.FixedMonthlyRateCalculator;
 import dev.demonboat.mortgageplan.model.Prospect;
 import dev.demonboat.mortgageplan.util.StringUtil;
 
-public final class CreateProspectUtil {
+public final class CreateProspectConverter {
 
-  private CreateProspectUtil() {}
+  private CreateProspectConverter() {}
 
   public static Prospect prospectFromCreateProspect(final CreateProspect createProspect) {
     double monthlyFixedRate = FixedMonthlyRateCalculator.calculate(

@@ -2,12 +2,11 @@ package dev.demonboat.mortgageplan.rest;
 
 import dev.demonboat.mortgageplan.model.Prospect;
 import dev.demonboat.mortgageplan.rest.create.CreateProspect;
-import dev.demonboat.mortgageplan.rest.create.CreateProspectUtil;
+import dev.demonboat.mortgageplan.rest.create.CreateProspectConverter;
 import dev.demonboat.mortgageplan.service.ProspectService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class ApiController  {
     if (prospect == null) {
       return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
-    prospects.add(CreateProspectUtil.prospectFromCreateProspect(prospect));
+    prospects.add(CreateProspectConverter.prospectFromCreateProspect(prospect));
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 }

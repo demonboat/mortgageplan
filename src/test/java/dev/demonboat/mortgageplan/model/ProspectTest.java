@@ -17,10 +17,10 @@ public final class ProspectTest {
 
     // Normally, there's a StringUtils for repeat values in strings.
     String bigString = "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK";
-    prospect = new Prospect(bigString, 3000.0, 3000.0, 100, 3.1);
+    prospect = new Prospect(bigString, 5000.0, 5000.0, 100, 3.1);
     assertEquals("KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK", prospect.customerName());
-    assertEquals(3000.0, prospect.totalLoan());
-    assertEquals(3000.0, prospect.interest());
+    assertEquals(5000.0, prospect.totalLoan());
+    assertEquals(5000.0, prospect.interest());
     assertEquals(100, prospect.years());
   }
 
@@ -43,7 +43,7 @@ public final class ProspectTest {
     assertThrows(IllegalArgumentException.class, () ->
       new Prospect("K", -1.0, 1.0, 3, 3.1));
     assertThrows(IllegalArgumentException.class, () ->
-      new Prospect("K", 3001.0, 1.0, 3, 3.1));
+      new Prospect("K", 5001.0, 1.0, 3, 3.1));
   }
 
   @Test
@@ -53,7 +53,7 @@ public final class ProspectTest {
     assertThrows(IllegalArgumentException.class, () ->
       new Prospect("K", 1.0, -1.0, 3, 3.1));
     assertThrows(IllegalArgumentException.class, () ->
-      new Prospect("K", 1.0, 3001.0, 3, 3.1));
+      new Prospect("K", 1.0, 5001.0, 3, 3.1));
   }
 
   @Test
