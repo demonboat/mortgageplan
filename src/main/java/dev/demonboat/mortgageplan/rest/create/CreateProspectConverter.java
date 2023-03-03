@@ -10,13 +10,13 @@ public final class CreateProspectConverter {
 
   public static Prospect prospectFromCreateProspect(final CreateProspect createProspect) {
     double monthlyFixedRate = FixedMonthlyRateCalculator.calculate(
-      createProspect.getTotalLoan(), createProspect.getInterest(), createProspect.getYears());
+      createProspect.totalLoan(), createProspect.interest(), createProspect.years());
 
     return new Prospect(
-    StringUtil.fixAndTrimDirtyString(createProspect.getCustomerName()),
-      createProspect.getTotalLoan(),
-      createProspect.getInterest(),
-      createProspect.getYears(),
+    StringUtil.fixAndTrimDirtyString(createProspect.customerName()),
+      createProspect.totalLoan(),
+      createProspect.interest(),
+      createProspect.years(),
       monthlyFixedRate);
   }
 }

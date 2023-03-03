@@ -1,4 +1,4 @@
-import { TextField, Button, Grid, Stack, Link } from '@mui/material';
+import { TextField, Button, Grid, Stack } from '@mui/material';
 import React, { useState } from 'react';
 
 
@@ -29,7 +29,7 @@ function FormView() {
         .catch(console.error);
     }
 
-    if (status == "201") {
+    if (status === "201") {
         window.location.reload();
     } 
 
@@ -64,6 +64,9 @@ function FormView() {
                         label="Loan Amount"
                         onChange={e => setTotalLoan(e.target.value)}
                         value={totalLoan}
+                        inputProps={{
+                            step: 0.01
+                        }}
                         fullWidth
                         required />
                     <TextField
@@ -73,6 +76,9 @@ function FormView() {
                         label="Interest"
                         onChange={e => setInterest(e.target.value)}
                         value={interest}
+                        inputProps={{
+                            step: 0.01
+                        }}
                         fullWidth
                         required
                         sx={{mb: 4}} />
@@ -83,6 +89,7 @@ function FormView() {
                         label="Years"
                         onChange={e => setYears(e.target.value)}
                         value={years}
+                        step={1}
                         required
                         fullWidth
                         sx={{mb: 4}} />

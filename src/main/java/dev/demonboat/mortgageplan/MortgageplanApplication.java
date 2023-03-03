@@ -1,8 +1,8 @@
 package dev.demonboat.mortgageplan;
 
-import dev.demonboat.mortgageplan.model.NamedColumnBean;
+import dev.demonboat.mortgageplan.model.ProspectBean;
 import dev.demonboat.mortgageplan.service.ProspectServiceImpl;
-import dev.demonboat.mortgageplan.util.CsvUtil;
+import dev.demonboat.mortgageplan.util.ProspectFileParser;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -20,7 +20,7 @@ public class MortgageplanApplication {
   public static void main(String[] args) {
     SpringApplication.run(MortgageplanApplication.class, args);
 
-    List<NamedColumnBean> prospectList = CsvUtil.getValuesFromCsv(null);
+    List<ProspectBean> prospectList = ProspectFileParser.getValuesFromCsv(null);
     var prospects = prospectList.stream()
                     .map(ProspectServiceImpl::toProspect)
                     .toList();

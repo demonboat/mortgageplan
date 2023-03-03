@@ -7,8 +7,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Grid } from '@mui/material';
 
-
-
 function TableView(props) {
     return (
       <Grid
@@ -19,7 +17,7 @@ function TableView(props) {
       justifyContent="center"
       style={{ minHeight: '100vh' }}>
      <Grid item xs={4}>
-         <h1>Table View for Prospects</h1>
+         <h1>Table with Prospects</h1>
      </Grid>
      <Grid item xs={4}>
      <TableContainer component={Paper}>

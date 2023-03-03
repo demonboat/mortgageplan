@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import TableView from './TableView'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,7 +14,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const url = "http://localhost:8080/api/v1/prospects/";
       fetch("http://localhost:8080/api/v1/prospects/")
       .then(response => response.json())
       .then(json => this.setState({ rows: json }))

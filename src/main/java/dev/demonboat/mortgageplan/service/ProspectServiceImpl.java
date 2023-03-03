@@ -1,9 +1,9 @@
 package dev.demonboat.mortgageplan.service;
 
 import dev.demonboat.mortgageplan.logic.FixedMonthlyRateCalculator;
-import dev.demonboat.mortgageplan.model.NamedColumnBean;
+import dev.demonboat.mortgageplan.model.ProspectBean;
 import dev.demonboat.mortgageplan.model.Prospect;
-import dev.demonboat.mortgageplan.util.CsvUtil;
+import dev.demonboat.mortgageplan.util.ProspectFileParser;
 import dev.demonboat.mortgageplan.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +20,7 @@ public class ProspectServiceImpl implements ProspectService {
 
   @Override
   public List<Prospect> getProspects() {
-    var csvValues = CsvUtil.getValuesFromCsv(
+    var csvValues = ProspectFileParser.getValuesFromCsv(
       Objects.requireNonNull(context.getClassLoader()).getResourceAsStream("csv/prospects.txt"));
     return csvValues.stream()
       .map(ProspectServiceImpl::toProspect)
@@ -28,15 +28,15 @@ public class ProspectServiceImpl implements ProspectService {
   }
 
 
-  public static Prospect toProspect(final NamedColumnBean namedColumnBean) {
+  public static Prospect toProspect(final ProspectBean prospectBean) {
     double monthlyFixedRate = FixedMonthlyRateCalculator.calculate(
-    namedColumnBean.getTotalLoan(), namedColumnBean.getInterest(), namedColumnBean.getYears());
+    prospectBean.getTotalLoan(), prospectBean.getInterest(), prospectBean.getYears());
 
     return new Prospect(
-    StringUtil.fixAndTrimDirtyString(namedColumnBean.getCustomer()),
-    namedColumnBean.getTotalLoan(),
-    namedColumnBean.getInterest(),
-    namedColumnBean.getYears(),
+    StringUtil.fixAndTrimDirtyString(prospectBean.getCustomer()),
+    prospectBean.getTotalLoan(),
+    prospectBean.getInterest(),
+    prospectBean.getYears(),
     monthlyFixedRate);
   }
 

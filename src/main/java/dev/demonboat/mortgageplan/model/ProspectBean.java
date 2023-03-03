@@ -2,7 +2,7 @@ package dev.demonboat.mortgageplan.model;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class NamedColumnBean {
+public class ProspectBean {
 
   @CsvBindByName(column = "Customer")
   private String customer;
@@ -16,7 +16,7 @@ public class NamedColumnBean {
   @CsvBindByName(column = "Years")
   private Integer years;
 
-  public NamedColumnBean() {
+  public ProspectBean() {
   }
 
   public String getCustomer() {

@@ -1,7 +1,7 @@
 package dev.demonboat.mortgageplan.util;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import dev.demonboat.mortgageplan.model.NamedColumnBean;
+import dev.demonboat.mortgageplan.model.ProspectBean;
 import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
@@ -12,18 +12,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class CsvUtil {
+public final class ProspectFileParser {
 
-  private CsvUtil() {}
+  private ProspectFileParser() {}
 
-  private static List<NamedColumnBean> beanBuilder(InputStream stream) throws IOException {
+  private static List<ProspectBean> beanBuilder(InputStream stream) throws IOException {
     if (stream == null) {
       stream = new ClassPathResource("csv/prospects.txt").getInputStream();
     }
     try (var reader = new InputStreamReader(stream, StandardCharsets.UTF_8)) {
-      var csvBean = new CsvToBeanBuilder<NamedColumnBean>(reader)
+      var csvBean = new CsvToBeanBuilder<ProspectBean>(reader)
         .withSeparator(',')
-        .withType(NamedColumnBean.class)
+        .withType(ProspectBean.class)
         .withFilter(stringValues -> Arrays.stream(stringValues)
           .anyMatch(value -> value != null && value.length() > 0 && !value.equals(".")))
         .build();
@@ -33,9 +33,9 @@ public final class CsvUtil {
     }
   }
 
-  public static List<NamedColumnBean> getValuesFromCsv(final InputStream stream) {
+  public static List<ProspectBean> getValuesFromCsv(final InputStream stream) {
     try {
-      return CsvUtil.beanBuilder(stream);
+      return ProspectFileParser.beanBuilder(stream);
     } catch (IOException e) {
       throw new IllegalStateException("File failed to load: <" + e + ">.");
     }
