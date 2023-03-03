@@ -13,10 +13,8 @@ services:
     networks:
       - containers
   backend:
-    env_file:
-      - .env
     build:
-      context: ./backend
+      context: .
       dockerfile: Dockerfile
     ports:
       - "8080:8080"

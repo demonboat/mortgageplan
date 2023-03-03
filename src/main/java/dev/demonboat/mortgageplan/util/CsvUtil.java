@@ -1,11 +1,14 @@
 package dev.demonboat.mortgageplan.util;
 
-import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import dev.demonboat.mortgageplan.model.NamedColumnBean;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,8 +24,8 @@ public final class CsvUtil {
     if (path == null) {
       throw new IllegalArgumentException("Path may not be null.");
     }
-    try (var reader = Files.newBufferedReader(path)) {
-      CsvToBean<NamedColumnBean> csvBean = new CsvToBeanBuilder<NamedColumnBean>(reader)
+    try (var reader = Files.newBufferedReader(path, StandardCharsets.UTF_8)) {
+      var csvBean = new CsvToBeanBuilder<NamedColumnBean>(reader)
         .withSeparator(',')
         .withType(NamedColumnBean.class)
         .withFilter(stringValues -> Arrays.stream(stringValues)
@@ -36,9 +39,10 @@ public final class CsvUtil {
   }
 
   public static List<NamedColumnBean> getValuesFromCsv() {
+    var resource = new ClassPathResource("csv/prospects.txt");
     try {
-      return CsvUtil.beanBuilder(Paths.get(ClassLoader.getSystemResource("csv/prospects.txt").toURI()));
-    } catch (URISyntaxException e) {
+      return CsvUtil.beanBuilder(Paths.get(resource.getURI()));
+    } catch (IOException e) {
       throw new IllegalStateException("Invalid URI Syntax: <" + e + ">.");
     }
   }
