@@ -17,21 +17,21 @@ import java.util.List;
 @SpringBootApplication
 public class MortgageplanApplication {
 
-    public static void main(String[] args) {
-      SpringApplication.run(MortgageplanApplication.class, args);
+  public static void main(String[] args) {
+    SpringApplication.run(MortgageplanApplication.class, args);
 
-      List<NamedColumnBean> prospectList = CsvUtil.getValuesFromCsv();
-      var prospects = prospectList.stream()
-        .map(ProspectServiceImpl::toProspect)
-        .toList();
+    List<NamedColumnBean> prospectList = CsvUtil.getValuesFromCsv(null);
+    var prospects = prospectList.stream()
+                    .map(ProspectServiceImpl::toProspect)
+                    .toList();
 
-      // For the purpose of displaying the output that was in the specification.
-      var index = 0;
-      for (var prospect : prospects) {
-        index++;
-        System.out.print("Prospect " + index + ":" + prospect.customerOutput());
-      }
+    // For the purpose of displaying the output that was in the specification.
+    var index = 0;
+    for (var prospect : prospects) {
+      index++;
+      System.out.print("Prospect " + index + ":" + prospect.customerOutput());
     }
+  }
 
   @Bean
   public OpenAPI customOpenAPI(@Value("${springdoc.api-docs.version}") String appVersion) {
