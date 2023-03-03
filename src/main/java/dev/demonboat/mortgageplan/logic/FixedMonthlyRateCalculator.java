@@ -15,7 +15,6 @@ public final class FixedMonthlyRateCalculator {
        * (monthlyInterest * MathUtil.pow(1 + monthlyInterest, numberOfPayments));
     //[(1 + b)^p - 1]
     Double denominator = MathUtil.pow(1 + monthlyInterest, numberOfPayments) - 1;
-    // E = [numerator / denominator]
     return numerator / denominator;
   }
 }

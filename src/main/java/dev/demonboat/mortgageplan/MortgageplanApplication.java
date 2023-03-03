@@ -19,7 +19,6 @@ public class MortgageplanApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(MortgageplanApplication.class, args);
-
     List<ProspectBean> prospectList = ProspectFileParser.getValuesFromCsv(null);
     var prospects = prospectList.stream()
                     .map(ProspectServiceImpl::toProspect)
